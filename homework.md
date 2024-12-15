@@ -33,11 +33,12 @@
 -
 -
 -
+- for video no. 18 --> Middlewares and error handlers.
 -
--
--
--
--
+- Play with multiple route handlers.
+- next()   --> with play it also.
+- next function and error along with res.send()
+- app.use("/route", rh1, [rh2, rh3], rh4, rh5)
 -
 -
 -
