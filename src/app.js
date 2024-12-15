@@ -2,26 +2,30 @@ const express = require('express');
 const app = express();
 
 
+const {adminAuth, userAuth} = require("./middlewares/auth");
 
-// in a route  --> there can be multiple routing.
-app.use("/user", (req, res, next) => {
-    console.log("Handling the route user.");     
-    // res.send("Response.!!!");
-    next();
-    res.send("Response.!!!");
 
-}, (req, res) => {
-    console.log("Handling the route user 2."); 
-    res.send("2nd Response.!!!");
+app.use("/admin", adminAuth);
+
+
+app.get("/admin/getAllData", (req, res) => {
+    res.send("Get all the data for the user.");
+});
+
+
+app.get("/admin/deleteData", (req, res) => {
+    res.send("Deleted all data.");
+});
+
+
+app.get("/user/data", userAuth, (req, res) => {
+    res.send("user data sent.")
 });
 
 
 
 
 
-
-
-// listening the request from the user.
 app.listen(7000, () => {
-    console.log("Server successfully running on port_no 7000.");
+    console.log("Server successfully running on the port_no 7000.");
 });
