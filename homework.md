@@ -13,7 +13,44 @@
 - Difference between caret and tilta (^ vs ~)
 
 
+
+
 - for video no. 17 --> Routing and Request handler.
+
+- initialize git --> git init
+- ignore node_modules --> .gitignore
+- create a remote repos on github
+- push all code to remote origin
+- play with the routes and extension like --> /hello, /hello/2, /test, /test/3, /xyz
+- order of the router matters a lot.
+- Install postman app and make workspace/collection and test api call.
+- write logic to handle GET, POST, DELETE, PATCH API call and test them on postman.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
 
 -
 -
@@ -24,6 +61,7 @@
 -
 -
 -
--
+
+
 -
 
