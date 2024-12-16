@@ -15,7 +15,8 @@ app.get("/getUserData", (req, res) => {
 });
 
 
-app.use("/", (err, req, res, next) => {
+// This will be put into the last of the application. so that if something went wrong, it will caught by that at the very last.
+app.use("/", (err, req, res, next) => {  // here, err -> this argument will be in the first place.
     if(err) {
         res.status(500).send("Error occured.!");
     } 
