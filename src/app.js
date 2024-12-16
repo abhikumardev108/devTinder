@@ -1,26 +1,27 @@
-const express = require('express');
+const express = require('express')
 const app = express();
 
 
-const {adminAuth, userAuth} = require("./middlewares/auth");
+// error handling.
 
 
-app.use("/admin", adminAuth);
-
-
-app.get("/admin/getAllData", (req, res) => {
-    res.send("Get all the data for the user.");
+app.get("/getUserData", (req, res) => {
+    try {
+        throw new Error("sdfghjkl");
+        res.send("Get all the user data from the database.");
+    } catch(err) {
+        res.status(500).send("Something went wrong.!");
+    }
 });
 
 
-app.get("/admin/deleteData", (req, res) => {
-    res.send("Deleted all data.");
+app.use("/", (err, req, res, next) => {
+    if(err) {
+        res.status(500).send("Error occured.!");
+    } 
 });
 
 
-app.get("/user/data", userAuth, (req, res) => {
-    res.send("user data sent.")
-});
 
 
 

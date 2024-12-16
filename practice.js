@@ -147,7 +147,43 @@ app.use("/user", [(req, res, next) => {
 
 
 
-// listening the request from the user.
+// listening the request from the user and middlewares.
 app.listen(7000, () => {
     console.log("Server successfully running on port_no 7000.");
+});
+
+
+// video_no. 18 --> doing admin and user authentication.
+
+const {adminAuth, userAuth} = require("./middlewares/auth");
+
+
+app.use("/admin", adminAuth);
+
+
+app.get("/admin/getAllData", (req, res) => {
+    res.send("Get all the data for the user.");
+});
+
+app.get("/admin/deleteData", (req, res) => {
+    res.send("Deleted all data.");
+});
+
+
+
+app.post("/user/login", (req, res) => {       // for user login ,no need to do authentication.
+    res.send("User logged in successfully.");
+});
+
+
+app.get("/user/data", userAuth, (req, res) => {
+    res.send("user data sent.")
+});
+
+
+
+
+
+app.listen(7000, () => {
+    console.log("Server successfully running on the port_no 7000.");
 });
