@@ -64,6 +64,28 @@
 -
 -
 -
+
+
+- video --> 20. Diving into the APIs.
+-
+- Diffence between js v/s JSON.
+- add the express.json() middleware to app.
+- make your /signup API dynamaic to receive the data from the end user.
+- User.findOne with duplicate emailId, then which object return ? . find it
+- API - get user by email
+- API - Feed API - GET /feed - get all the user from the database.
+- API - get user by ID.
 -
 -
+-
+-
+-
+-
+-
+-
+-
+-
+-
+
+
 
