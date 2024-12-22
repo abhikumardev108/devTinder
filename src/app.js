@@ -38,7 +38,7 @@ app.get("/user", async (req, res) => {
         } else {
             res.send(user);
         }
-        
+
     } catch(err) {
         res.status(400).send("Something went wrong.");
     }
@@ -61,6 +61,58 @@ app.get("/feed", async (req, res) => {
 
 
 });
+
+
+// GET "/id" - get users form the database using _id.
+
+app.get("/id", async (req, res) => {
+    const userId = req.body._id;
+
+    try {
+        // console.log("id : " + userId);
+        const user = await User.find({_id : userId});
+        res.send(user);
+    } catch(err) {
+        res.status(402).send("Id not found.!");
+    }
+});
+
+
+
+ 
+// delete API -> Delete a data from the database.
+app.delete("/user", async (req,res) => { 
+    const userId = req.body._id;
+
+    try {
+        // const user = await User.findByIdAndDelete({_id : userId});
+        const user = await User.findByIdAndDelete(userId);
+        res.send("user deleted successfully.!");
+
+    } catch(err) {
+        res.status(404).send("user not found.!");
+    }
+});
+
+
+// update data of the user.
+app.patch("/user", async (req, res) => {
+
+    const userId = req.body._id;
+    const data = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate({_id : userId}, data, {returnDocument : "after"});
+        // const user = await User.findByIdAndUpdate({_id : userId}, data);
+        console.log(user);
+        res.send("user upadated successfully.");
+    } catch(err) {
+        res.status(404).send("user not found.!");
+    }
+
+});
+
+
 
 
 
