@@ -1,33 +1,47 @@
-const express = require('express')
+const express = require("express");
+
+const {connectDB} = require("./config/database"); // import from database.
+
 const app = express();
 
+const User = require("./models/user");
 
-// error handling.
 
 
-app.get("/getUserData", (req, res) => {
+
+// creating the post api
+
+app.post("/signup" ,  async (req, res) => {
+    // logic
+    // creating a new instance of the user model.
+    const user = new User({
+        firstName : "Golu",
+        lastName : "Kumar",
+        emailId : "golukumar@gmail.com",
+        password : "golu@12345"
+    });
+
+
     try {
-        throw new Error("sdfghjkl");
-        res.send("Get all the user data from the database.");
+        await user.save();
+        res.send("User added successfully.");
     } catch(err) {
-        res.status(500).send("Something went wrong.!");
+        res.status(400).send("Error saving the user : " + err.message);
     }
 });
 
 
-// This will be put into the last of the application. so that if something went wrong, it will caught by that at the very last.
-app.use("/", (err, req, res, next) => {  // here, err -> this argument will be in the first place.
-    if(err) {
-        res.status(500).send("Error occured.!");
-    } 
+
+
+connectDB().then(() => {
+    console.log("Database connected successfully.");
+
+    // 1st db coonection done, then after connect to the server.
+    app.listen(5000, () => {
+        console.log("Server successfully running on the port_no 5000...");
+    });
+    
+}).catch(err => {
+    console.log("Database can't be connected.");
 });
 
-
-
-
-
-
-
-app.listen(7000, () => {
-    console.log("Server successfully running on the port_no 7000.");
-});

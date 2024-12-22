@@ -51,18 +51,19 @@
 -
 -
 - video 19. ---> Database, Schema & models mongoose.
--
 
+- Create a cluster on the mongoDB official website. --> mongo atlas
+- install mongoose library
+- connect your application to the db (not the cluster) like "connection-url"/ devTinder
+- call the connectDB() function and connect to db even before starting the application on the port_no 7000.
+- Create a userSchema and then User model.
+- Create POST /signup api to add data to database. and do also with some more experiment.
+- Push some documents using api call from postman.
+- Error handling using try, catch block.
 -
 -
 -
 -
 -
--
--
--
--
-
-
 -
 
