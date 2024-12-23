@@ -6,8 +6,8 @@ const user = require("./models/user");
 
 
 
-app.use(express.json()); 
-
+app.use(express.json());   // converting JSON into js object, so that communication will happens.
+ 
 
 // creating the post dynamic API.
 
@@ -102,12 +102,15 @@ app.patch("/user", async (req, res) => {
     const data = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate({_id : userId}, data, {returnDocument : "after"});
         // const user = await User.findByIdAndUpdate({_id : userId}, data);
+        const user = await User.findByIdAndUpdate({_id : userId}, data, {
+            returnDocument : "after", 
+            runValidators : true,
+        });
         console.log(user);
         res.send("user upadated successfully.");
     } catch(err) {
-        res.status(404).send("user not found.!");
+        res.status(404).send("Update failed." + err.message);
     }
 
 });

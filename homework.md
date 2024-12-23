@@ -84,6 +84,19 @@
 -
 -
 -
+- video 21. --> 
+
+- Explore the schematypes options from the documentaion.
+- add required, unique, lowercase, min, max, minLength, trim, 
+- Add default value
+- Create a custom validation function for gender.
+- Improve the DB schema -> Put all the appropriate validation on each field in the schema.
+- Add timestamps to the userSchema.
+-
+-
+-
+-
+-
 -
 -
 -
