@@ -96,10 +96,23 @@
 - Data Sanitation -> Add API validation for each field.
 - Install validator 
 - Explore the validator library function and use the validator for password, emailId, phone, photoURL... and many more.
+- NEVER EVER in your life trust --> "req.body" --> means user, they can enter any data.
+-
+-
+-
+- video 22. -> Encrypting password.
+-
+- Validate data in /signup API.
+- Install bcrypt package.
+- Create a passwordHash using bcrypt.hash and save the user with encrypted password.
+- Create  /login API.
+- Comapare password and through error if email or password is wrong.
 -
 -
 -
 -
+-
+
 
 
 
