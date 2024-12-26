@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const validator = require("validator");
+
 
 
 const userSchema = new mongoose.Schema({
@@ -17,10 +19,21 @@ const userSchema = new mongoose.Schema({
         lowercase : true,
         unique : true,
         trim : true,
+        validate(value) {
+            if(!validator.isEmail(value)) {
+                throw new Error("Invalid emailId" + value);
+            }
+        }
+
     },
     password : {
         type : String,
         required : true,
+        validate(value) {
+            if(!validator.isStrongPassword(value)) {
+                throw new Error("Please Enter strong password.!" + value);
+            }
+        }
     },
     age : {
         type : Number,
@@ -39,6 +52,13 @@ const userSchema = new mongoose.Schema({
     },
     photoUrl : {
         type : String,
+        default : "https://www.shutterstock.com/image-vector/shree-ram-navmi-marathi-hindi-calligraphy-2279931679",
+
+        validate(value) {
+            if(!validator.isURL(value)) {
+                throw new Error("Invalid photo URL" +value);
+            }
+        }
     },
     about : {
         type : String,

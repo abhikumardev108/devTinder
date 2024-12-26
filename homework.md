@@ -94,8 +94,8 @@
 - Add timestamps to the userSchema.
 - Add API level validation on a PATCH request and /signup POST API.
 - Data Sanitation -> Add API validation for each field.
--
--
+- Install validator 
+- Explore the validator library function and use the validator for password, emailId, phone, photoURL... and many more.
 -
 -
 -
