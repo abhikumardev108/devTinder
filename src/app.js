@@ -2,13 +2,20 @@ const express = require("express");
 const {connectDB} = require("./config/database");   // import from database.
 const app = express();
 const User = require("./models/user");
-const user = require("./models/user");
 const {validateSignUpData} = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+
+const {userAuth} = require("./middlewares/auth");
+const user = require("./models/user");
+
+
+
 
 app.use(express.json());   // converting JSON into js object, so that communication will happens.
- 
+app.use(cookieParser());  // helps us to read cookies.
 
 
 // creating the post dynamic API.
@@ -43,6 +50,7 @@ app.post("/signup" , async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const {emailId, password} = req.body;
+
         if(!validator.isEmail(emailId)) {
             throw new Error("EmailId is not valid.!");
         }
@@ -54,7 +62,13 @@ app.post("/login", async (req, res) => {
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if(isPasswordValid) {
-            res.send("login successful.!!!");
+            // create a JWT token.
+            const token = await jwt.sign({_id : user._id}, "DEV@TINDER500", {expiresIn : "1d"});
+            console.log(token);
+
+            // Add the token to the cookies and sends a response to the user.
+            res.cookie("token", token, {expires: new Date(Date.now() + 8 * 3600000)});     
+            res.send("login successful.!!");
         } else {
             throw new Error("Invalid credentials.!");
         }
@@ -63,6 +77,32 @@ app.post("/login", async (req, res) => {
         res.status(400).send("Error : " + err.message);
     }
 });
+
+
+app.get("/profile", userAuth, async (req, res) => {
+
+    try {
+
+        const user = req.user;
+        res.send(user);
+    } catch(err) {
+        res.status(400).send("Error : " + err.message);
+    }
+
+});
+
+
+
+// "/sendConnectionRequest" API.
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+    const user = req.user;
+    // sending a connection request.
+    console.log("Sending a connection request.!");
+
+    res.send(user.firstName + " " + "sent the connection request.!");
+});
+
+
 
 // get "/user" by emailId
 app.get("/user", async (req, res) => {
@@ -150,6 +190,7 @@ app.patch("/user/:userId", async (req, res) => {
         const isUpdateAllowed = Object.keys(data).every((k) =>
             ALLOWED_UPDATES.includes(k)
         );
+
         if(!isUpdateAllowed) {
             throw new Error("Updates not allowed.!");
         }
@@ -163,8 +204,10 @@ app.patch("/user/:userId", async (req, res) => {
             returnDocument : "after", 
             runValidators : true,
         });
+
         console.log(user);
         res.send("user upadated successfully.");
+
     } catch(err) {
         res.status(404).send("Update failed." + err.message);
     }
